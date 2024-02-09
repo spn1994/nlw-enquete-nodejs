@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// repsesentação do banco de dados, o nome do model precisa iniciar com maiuscula
+model Poll {
+  id        String       @id @default(uuid())
+  title     String
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @default(now())
+  //essa linha é só pro prisma saber internamente que o relacionamento existe
+  options   PollOption[]
+  votes     Vote[]
+}
+
+model PollOption {
+  id     String @id @default(uuid())
+  title  String
+  pollId String
+
+  //essa linha quem vai indicar a relação da minha prima key
+  poll  Poll   @relation(fields: [pollId], references: [id])
+  votes Vote[]
+}
+
+model Vote {
+  id           Int      @id @default(autoincrement())
+  sessionId    String
+  pollId       String
+  pollOptionId String // Renomeando o campo para evitar conflitos  
+  createdAt    DateTime @default(now())
+
+  pollOption PollOption @relation(fields: [pollOptionId], references: [id])
+  poll       Poll       @relation(fields: [pollId], references: [id])
+
+  //combinação desses dois campos é unica
+  @@unique([sessionId, pollId])
+}

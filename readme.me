@@ -1,0 +1,37 @@
+ts config json vc procura node target mapping (npx tsc init)
+
+docker ps (comando para ver o que ta rodando)
+
+//docker compose arquivo de receita, peguei pronto
+pra rodar docker
+docker compose up -d
+
+docker logs id (69b5eb07bcbc)
+
+
+//websocket mantem sincronizado os votos do servidor
+
+----
+//driver nativo é a camada mais baixo nivel possivel() escrevendo no codigo
+//ORMs ferramentas q trazem dba é uma interface q faz isso
+  -- prisma q eu vou usar
+
+
+
+  -- npm install -D prisma
+
+  -- npx prisma init
+
+  --para prisma criar banco de dados
+  npx prisma migrate dev
+
+  npx prisma studio
+  abre interface navegador
+
+  //npm i @fastify/cookie
+  para instalar modulo de cookie
+
+  //REDIS PARA CONTAGEM DE votos 
+  npm i ioredis
+
+  //npm i @fastify/websocket
